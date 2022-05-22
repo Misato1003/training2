@@ -1,0 +1,50 @@
+<h1>料理の一覧表</h1>
+
+<!--フラッシュメッセージ-->
+<% if flash[:notice] %>
+ <p class="notice"><%= flash[:notice] %></p>
+<% end %>
+
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>料理名</th>
+            <th>作る際のポイント</th>
+            <th>料理の写真</th>
+            <th>対象者</th>
+            <th>料理の分類</th>
+            <th>詳細</th>
+            <th>編集</th>
+            <th>削除</th>
+        </tr>
+    </thead>
+    
+    <tbody>
+        <% @cooks.each do |cook| %>
+            <tr>
+                <td><%= cook.id %></td>
+                <td><%= cook.name %></td>
+                <td><%= cook.point %></td>
+                <td><img src="<%= cook.image%>" class="cook-image" ></td>
+                <td><%= cook.target_people %></td>
+                <td><%= cook.target_cook %></td>
+                <td>
+                    <%= link_to "詳細", cook %>
+                </td>
+                <td>
+                    <%= link_to "編集", [:edit, cook] %>
+                </td>
+                <td>
+                    <%= link_to "削除", cook, method: :delete, data:{confirm:"本当に削除しますか?"} %>
+                </td>
+            </tr>
+        <% end %>
+    </tbody>
+</table>
+
+<p><%= link_to "料理の新規登録" , new_cook_path %></p>
+
+<p><%= link_to "トップページ" , home_page_path %></p>
+
+
